@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./InventoryView.css"
-import { PackageIcon, ShoppingCartIcon, UserIcon, SearchIcon, PlusIcon, MinusIcon } from "./Icons"
+import { PackageIcon, ShoppingCartIcon, UserIcon, SearchIcon, PlusIcon, MinusIcon, HomeIcon } from "./Icons"
 
 interface InventoryItem {
   id: number
@@ -87,6 +87,10 @@ export default function InventoryView() {
       </div>
 
       <nav className="bottom-nav">
+        <button className="nav-item" onClick={() => navigate("/")}>
+          <HomeIcon />
+          <span>Inicio</span>
+        </button>
         <button className="nav-item active" onClick={() => navigate("/inventario")}>
           <PackageIcon />
           <span>Inventario</span>

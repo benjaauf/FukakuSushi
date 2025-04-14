@@ -106,7 +106,7 @@ export default function CartView() {
       </div>
 
       <nav className="bottom-nav">
-        <button className="nav-item" onClick={() => navigate("/inicio")}>
+        <button className="nav-item" onClick={() => navigate("/")}>
           <HomeIcon />
           <span>Inicio</span>
         </button>
