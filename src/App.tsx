@@ -10,7 +10,10 @@ import OwnerDashboardView from "./components/OwnerDashboardView"
 import AdminHomeView from "./components/AdminHomeView"
 import DeliveryManagerView from "./components/DeliveryManagerView"
 import UserManagementView from "./components/UserManagementView"
-import "./App.css"
+import ProfileView from "./components/ProfileView";
+import RegisterView from "./components/RegisterView";
+import LoginView from "./components/LoginView";
+import "./App.css";
 
 function App() {
   return (
@@ -28,9 +31,12 @@ function App() {
         <Route path="/admin/usuarios" element={<UserManagementView />} />
         <Route path="/despachos" element={<DeliveryManagerView />} />
         <Route path="/perfil" element={<div>Página de Perfil</div>} />
+        <Route path="/register" element={<RegisterView />} />
+        <Route path="/perfil" element={<ProfileView />} />
+        <Route path="/login" element={<LoginView />} />
       </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
