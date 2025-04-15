@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "./Icons";
 import { useNavigate } from "react-router-dom";
-import "./RegisterView.css";
+import styles from "./RegisterView.module.css";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
@@ -38,7 +38,7 @@ export default function RegisterPage() {
     navigate("/login");
   };
   return (
-    <div className="register-view">
+    <div className={styles.registerView}>
       <header className="header">
         <div className="logo">
           <h1>FUKAKU SUSHI</h1>
@@ -52,8 +52,8 @@ export default function RegisterPage() {
           </button>
         </div>
       </header>
-      <main className="main-content">
-        <form className="form" onSubmit={handleSubmit}>
+      <main className={styles.main}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <h2 className="form-title">Registro</h2>
 
           <input
