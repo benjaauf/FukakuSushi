@@ -5,6 +5,11 @@ import HomeView from "./components/HomeView"
 import CheckoutView from "./components/CheckoutView"
 import PaymentMethodView from "./components/PaymentMethodView"
 import OrderConfirmationView from "./components/OrderConfirmationView"
+import CashierView from "./components/CashierView"
+import OwnerDashboardView from "./components/OwnerDashboardView"
+import AdminHomeView from "./components/AdminHomeView"
+import DeliveryManagerView from "./components/DeliveryManagerView"
+import UserManagementView from "./components/UserManagementView"
 import "./App.css"
 
 function App() {
@@ -17,6 +22,11 @@ function App() {
         <Route path="/payment" element={<PaymentMethodView />} />
         <Route path="/confirmacion" element={<OrderConfirmationView />} />
         <Route path="/inventario" element={<InventoryView />} />
+        <Route path="/cajero" element={<CashierView />} />
+        <Route path="/dueno" element={<OwnerDashboardView />} />
+        <Route path="/admin" element={<AdminHomeView />} />
+        <Route path="/admin/usuarios" element={<UserManagementView />} />
+        <Route path="/despachos" element={<DeliveryManagerView />} />
         <Route path="/perfil" element={<div>Página de Perfil</div>} />
       </Routes>
     </div>
