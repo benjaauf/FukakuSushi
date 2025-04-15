@@ -61,6 +61,10 @@ export default function CartView() {
     return `${(price).toLocaleString("es-CL")}`
   }
 
+  const handleConfirm = () => {
+    navigate("/checkout", { state: { total: calculateTotal() } })
+  }
+
   return (
     <div className="cart-container">
       <header className="cart-header">
@@ -102,7 +106,9 @@ export default function CartView() {
           <span>Total</span>
           <span>{formatPrice(calculateTotal())}</span>
         </div>
-        <button className="confirm-button">Confirmar</button>
+        <button className="confirm-button" onClick={handleConfirm}>
+          Confirmar
+        </button>
       </div>
 
       <nav className="bottom-nav">
