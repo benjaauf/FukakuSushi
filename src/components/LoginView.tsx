@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "./Icons";
 import { useNavigate } from "react-router-dom";
-import "./LoginView.css";
+import styles from "./LoginView.module.css";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
@@ -24,12 +24,12 @@ export default function RegisterPage() {
     e.preventDefault();
     // Aquí puedes manejar el envío del formulario, como enviar los datos a una API
     console.log("Formulario enviado:", formData);
-    navigate("/");
+    navigate("/perfil", { state: { email: formData.email } });
     // Redirigir a la página de perfil después del registro exitoso
   };
   return (
-    <div className="register-view">
-      <header className="header">
+    <div className={styles.loginView}>
+      <header className={styles.header}>
         <div className="logo">
           <h1>FUKAKU SUSHI</h1>
         </div>
@@ -42,10 +42,9 @@ export default function RegisterPage() {
           </button>
         </div>
       </header>
-      <main className="main-content">
-        <form className="form" onSubmit={handleSubmit}>
-          <h2 className="form-title">Inicio Sesion</h2>
-
+      <main className={styles.main}>
+        <h2 className={styles.formTitle}>Inicio Sesion</h2>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <input
             placeholder="Correo Electrónico"
             type="email"
@@ -64,12 +63,12 @@ export default function RegisterPage() {
             onChange={handleChange}
           />
 
-          <button type="submit" className="button">
+          <button type="submit" className={styles.button}>
             Inicio sesion
           </button>
         </form>
       </main>
-      <nav className="bottom">
+      <nav className={styles.bottom}>
         <button className="nav-item" onClick={() => navigate("/")}>
           <HomeIcon />
           <span>Inicio</span>

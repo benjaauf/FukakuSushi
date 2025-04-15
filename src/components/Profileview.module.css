@@ -1,4 +1,4 @@
-.profile-view {
+.profileView {
   max-width: 100%;
   width: 100%;
   height: 100%;
@@ -8,6 +8,18 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
   margin: 0%;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+.profileTitle {
+  padding: 1rem 0;
+  text-align: center;
 }
 .header {
   display: flex;
@@ -19,11 +31,11 @@
   max-width: 100%;
 }
 
-.main-content {
+.main {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* display: flex; */
+
   width: 100%;
 }
 .bottom {
@@ -47,7 +59,7 @@
   border: none;
   cursor: pointer;
 }
-.button-container {
+.buttonContainer {
   margin-top: auto;
   max-width: 100%;
   display: flex;

@@ -39,7 +39,7 @@ export default function RegisterPage() {
   };
   return (
     <div className={styles.registerView}>
-      <header className="header">
+      <header className={styles.header}>
         <div className="logo">
           <h1>FUKAKU SUSHI</h1>
         </div>
@@ -146,12 +146,12 @@ export default function RegisterPage() {
             onChange={handleChange}
           />
 
-          <button type="submit" className="button">
+          <button type="submit" className={styles.button}>
             Crear cuenta
           </button>
         </form>
       </main>
-      <nav className="bottom">
+      <nav className={styles.bottom}>
         <button className="nav-item" onClick={() => navigate("/")}>
           <HomeIcon />
           <span>Inicio</span>

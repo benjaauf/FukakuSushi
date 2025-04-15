@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "./Icons";
-import { useNavigate } from "react-router-dom";
-import "./ProfileView.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from "./Profileview.module.css";
 
 export default function ProfileView() {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,9 +14,19 @@ export default function ProfileView() {
       setSearchTerm("");
     }
   };
+  const location = useLocation();
+  const mail = location.state?.email || null; // Obtener el email del estado de la ubicación
+
+  useEffect(() => {
+    if (mail) {
+      setUser(mail);
+    }
+    console.log("User email:", mail);
+  }, [mail]);
+
   return (
-    <div className="profile-view">
-      <header className="header">
+    <div className={styles.profileView}>
+      <header className={styles.header}>
         <div className="logo">
           <h1>FUKAKU SUSHI</h1>
         </div>
@@ -28,22 +39,47 @@ export default function ProfileView() {
           </button>
         </div>
       </header>
-
-      <main className="main-content">
-        <h2 className="profile-title">Perfil</h2>
-
-        {/* Buttons positioned at the bottom */}
-        <div className="button-container">
-          <button className="button" onClick={() => navigate("/register")}>
-            Registrarse
-          </button>
-          <button className="button" onClick={() => navigate("/login")}>
-            Iniciar Sesión
-          </button>
-        </div>
+      <main className={styles.main}>
+        {!user ? (
+          <>
+            <h2 className={styles.profileTitle}>Perfil no iniciado</h2>
+            <div className={styles.buttonContainer}>
+              <button
+                className={styles.button}
+                onClick={() => navigate("/register")}
+              >
+                Registrarse
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => navigate("/login")}
+              >
+                Iniciar Sesión
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className={styles.profileTitle}>Perfil de {user}</h2>
+            <div className={styles.userInfo}>
+              <p>Email: {user}</p>
+              {/* Aquí puedes agregar más información del usuario */}
+            </div>
+            <div className={styles.buttonContainer}>
+              <button
+                className={styles.button}
+                onClick={() => navigate("/edit", { state: { email: user } })} // Pasar el email al editar perfil
+              >
+                Editar Perfil
+              </button>
+              <button className={styles.button} onClick={() => setUser(null)}>
+                Cerrar Sesion
+              </button>
+            </div>
+          </>
+        )}
       </main>
-
-      <nav className="bottom">
+      <nav className={styles.bottom}>
         <button className="nav-item" onClick={() => navigate("/")}>
           <HomeIcon />
           <span>Inicio</span>
