@@ -1,0 +1,163 @@
+.payment-container {
+    max-width: 100%;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  
+  .payment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .payment-title h1 {
+    color: #800000;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .payment-methods {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .payment-method {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .payment-method.selected {
+    border: 2px solid #800000;
+  }
+  
+  .method-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .method-type {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .method-number {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .method-networks {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .network-logo {
+    width: 40px;
+    height: 25px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .mastercard {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 131.39 86.9"><path d="M48.37 15.14h34.66v56.61H48.37z" fill="%23ff5f00"/><path d="M51.94 43.45a35.94 35.94 0 0113.75-28.3 36 36 0 100 56.61 35.94 35.94 0 01-13.75-28.31z" fill="%23eb001b"/><path d="M120.5 65.76V64.6h.5v-.24h-1.19v.24h.47v1.16zm2.31 0v-1.4h-.36l-.42 1-.42-1h-.36v1.4h.26V64.7l.39.91h.27l.39-.91v1.06zM123.94 43.45a36 36 0 01-58.25 28.3 36 36 0 000-56.61 36 36 0 0158.25 28.3z" fill="%23f79e1b"/></svg>');
+  }
+  
+  .visa {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 324.68"><path d="M651.17 0l-79.56 228.64h-60.61L451.79 35.65c-3.6-14.3-6.76-19.53-17.77-25.55C421.32 2.51 399.10 0 383.80 0h-143.5l-.81 7.48c41.05 10.15 87.52 26.46 115.88 43.79 17.32 10.15 22.25 19.08 27.92 43.34l51.28 134.02h103.06L651.17 0zm129.56 156.52c41.50 0 70.08-27.47 70.08-65.59 0-36.33-24.86-63.8-69.63-63.8-39.71 0-69.63 27.47-69.63 65.14 0 38.12 30.37 64.25 69.18 64.25zm-3.6-104.55c20.46 0 34.99 15.19 34.99 39.01 0 23.82-14.53 39.01-34.99 39.01-20.01 0-34.54-15.19-34.54-39.46 0-23.37 14.53-38.56 34.54-38.56zM891.77 152.03l-50.38-125.43h-37.02l78.75 178.59h17.32l78.3-178.59h-36.57l-50.4 125.43zm-648.57 76.61H132.38L94.42 49.05H0l1.35 7.48c30.82 7.48 65.81 19.53 87.07 32.48 12.84 8.36 16.43 15.84 20.46 35.88l68.52 203.79h103.96l129.56-324.68h-59.71l-103.03 224.64z" fill="%231a1f71"/></svg>');
+  }
+  
+  .amex {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 64"><path d="M104 35.15V63.5H0V.5h104v34.65z" fill="%23016fd0"/><path d="M51.98 31.82l1.66-4.03h3.76V15.38h-6.1l-3.47 8.15-3.32-8.15h-6.38v12.4h3.68v-9.2l3.9 9.2h2.46l3.8-9.2v9.2h.01zm-20.45 0h4.36l.82-1.98h6.48l.81 1.98h4.5l-5.95-12.4h-5.04l-6 12.4zm5.28-4.98l1.88-4.55 1.87 4.55h-3.75zm36.12 4.98h4.5V15.38h-4.5v16.44zm-5.4 0h9.2v-3.42h-4.7v-2.2h4.6v-3.33h-4.6v-2.2h4.7v-3.3h-9.2v14.45zm-8.2 0h4.46v-9.2l6.38 9.2h5.05V15.38h-4.48v8.7l-6.1-8.7h-5.3v16.44zm-45.06 0h9.2v-3.42h-4.7v-2.2h4.6v-3.33h-4.6v-2.2h4.7v-3.3h-9.2v14.45zm-9.2 0h4.7v-3.42h4.5v3.42h4.7V15.38h-4.7v3.3h-4.5v-3.3h-4.7v16.44zm54.28 16.45h4.5V35.83h-4.5v12.44zm-36.13 0h4.36l.82-1.98h6.48l.81 1.98h4.5l-5.95-12.44h-5.04l-5.98 12.44zm5.28-4.98l1.88-4.55 1.87 4.55h-3.75zm22.67 4.98h4.7v-3.42h4.5v3.42h4.7V35.83h-4.7v3.3h-4.5v-3.3h-4.7v12.44zm-31.87 0h9.2v-3.42h-4.7v-2.2h4.6v-3.33h-4.6v-2.2h4.7v-3.3h-9.2v14.45zm45.06 0h4.5V35.83h-4.5v12.44zm-22.67 0h4.5l5.4-8.7v8.7h4.5V35.83h-4.5l-5.4 8.7v-8.7h-4.5v12.44z" fill="%23fff"/></svg>');
+  }
+  
+  .add-card-button {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  
+  .payment-footer {
+    padding: 1rem;
+    background-color: white;
+  }
+  
+  .payment-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .pay-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #800000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0;
+    background-color: #800000;
+    color: white;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+  
+  .nav-item.active {
+    color: white;
+  }
+  
+  .nav-item svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 0.25rem;
+  }
+  

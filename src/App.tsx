@@ -1,7 +1,10 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import CartView from "./components/CartView"
 import InventoryView from "./components/InventoryView"
 import HomeView from "./components/HomeView"
+import CheckoutView from "./components/CheckoutView"
+import PaymentMethodView from "./components/PaymentMethodView"
+import OrderConfirmationView from "./components/OrderConfirmationView"
 import "./App.css"
 
 function App() {
@@ -10,6 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/carrito" element={<CartView />} />
+        <Route path="/checkout" element={<CheckoutView />} />
+        <Route path="/payment" element={<PaymentMethodView />} />
+        <Route path="/confirmacion" element={<OrderConfirmationView />} />
         <Route path="/inventario" element={<InventoryView />} />
         <Route path="/perfil" element={<div>Página de Perfil</div>} />
       </Routes>
