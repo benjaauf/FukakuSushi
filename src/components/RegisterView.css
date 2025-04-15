@@ -1,0 +1,99 @@
+/* body {
+  margin: 0;
+} */
+
+.register-view {
+  max-width: 100%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  margin: 0%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  width: 100%;
+}
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.75rem 0;
+  background-color: #800000;
+  color: white;
+  width: 100%;
+}
+
+.button {
+  flex: 1;
+  background-color: #800000;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  text-align: center;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+.nav-item.active {
+  color: white;
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 0.25rem;
+}
+.form {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 100%;
+}
+
+.form input {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* .form input:focus {
+  border-color: #800000;
+  outline: none;
+}
+.form input::placeholder {
+  color: #999;
+} */
