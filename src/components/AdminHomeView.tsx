@@ -240,7 +240,7 @@ export default function AdminHomeView() {
     <div className="admin-home-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
           <h2 className="subtitle">Administración</h2>
         </div>
       </header>

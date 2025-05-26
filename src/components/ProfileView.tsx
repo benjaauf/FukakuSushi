@@ -28,7 +28,7 @@ export default function ProfileView() {
     <div className={styles.profileView}>
       <header className={styles.header}>
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
         </div>
         <div className="header-actions">
           <button className="icon-button" onClick={toggleSearch}>

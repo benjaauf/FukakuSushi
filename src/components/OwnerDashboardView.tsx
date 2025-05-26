@@ -366,7 +366,7 @@ export default function OwnerDashboardView() {
     <div className="owner-dashboard-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
           <h2 className="subtitle">Ventas</h2>
         </div>
       </header>

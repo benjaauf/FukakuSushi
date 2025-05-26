@@ -116,7 +116,7 @@ export default function CashierView() {
     <div className="cashier-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
           <h2 className="subtitle">Pedidos</h2>
         </div>
       </header>
@@ -208,7 +208,7 @@ export default function CashierView() {
             <div className="modal-body">
               <div className="receipt">
                 <div className="receipt-header">
-                  <h3>FUKAKU SUSHI</h3>
+                  <h3>FUKUSUKE SUSHI</h3>
                   <p>Boleta Electrónica</p>
                   <p>Fecha: {formatDate(new Date())}</p>
                 </div>

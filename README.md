@@ -3,6 +3,16 @@ Para iniciar el proyecto
 npm install (Solo una vez)
 npm run dev 
 
+para db
+en /crud/
+npm init -y
+npm install express sqlite3
+
+node app.js
+
+se abre la db en el puerto 3000, pueden probar on clientes en el postman!
+Hay que hacer en /routes el resto de cruds 
+
 
 
 

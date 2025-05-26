@@ -286,7 +286,7 @@ export default function DeliveryManagerView() {
     <div className="delivery-manager-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
           <h2 className="subtitle">Despachos</h2>
         </div>
       </header>
@@ -430,7 +430,7 @@ export default function DeliveryManagerView() {
             <div className="modal-body">
               <div className="print-preview">
                 <div className="print-header">
-                  <h3>FUKAKU SUSHI - ORDEN DE DESPACHO</h3>
+                  <h3>FUKUSUKE SUSHI - ORDEN DE DESPACHO</h3>
                   <p>Pedido #{selectedOrder.id}</p>
                   <p>Fecha: {formatDate(selectedOrder.timestamp)}</p>
                 </div>

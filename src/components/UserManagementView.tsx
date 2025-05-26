@@ -253,7 +253,7 @@ export default function UserManagementView() {
     <div className="user-management-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
           <h2 className="subtitle">Gestión de Usuarios</h2>
         </div>
       </header>
