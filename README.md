@@ -4,8 +4,11 @@ npm install (Solo una vez)
 npm run dev 
 
 para db
+
 en /crud/
+
 npm init -y
+
 npm install express sqlite3
 
 node app.js
