@@ -4,9 +4,9 @@ const db = require('../db/database');
 
 // Crear cliente
 router.post('/', (req, res) => {
-  const { rut, nombre, direccion } = req.body;
-  const sql = `INSERT INTO Cliente (rut, nombre, direccion) VALUES (?, ?, ?)`;
-  db.run(sql, [rut, nombre, direccion], function (err) {
+  const { rut, nombre, direccion, comuna, provincia, region, fecha_nacimiento, email, telefono, contraseña } = req.body;
+  const sql = `INSERT INTO Cliente (rut, nombre, direccion, comuna, provincia, region, fecha_nacimiento, email, telefono, contraseña) VALUES (?, ?, ?, ? , ?, ?, ?, ?, ?, ?)`;
+  db.run(sql, [rut, nombre, direccion, comuna, provincia, region, fecha_nacimiento, email, telefono, contraseña], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ id: this.lastID });
   });
@@ -31,8 +31,8 @@ router.get('/:rut', (req, res) => {
 
 // Actualizar cliente
 router.put('/:rut', (req, res) => {
-  const { nombre, direccion } = req.body;
-  const sql = `UPDATE Cliente SET nombre = ?, direccion = ? WHERE rut = ?`;
+  const { rut, nombre, direccion, comuna, provincia, region, fecha_nacimiento, email, telefono, contraseña } = req.body;
+  const sql = `UPDATE Cliente SET nombre = ?, direccion = ? , comuna = ?, provincia = ?, region = ?, fecha_nacimiento = ?, email = ?, telefono = ?, contraseña = ? WHERE rut = ?`;
   db.run(sql, [nombre, direccion, req.params.rut], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ updated: this.changes });

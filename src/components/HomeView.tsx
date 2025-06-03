@@ -232,7 +232,7 @@ export default function HomeView() {
     <div className="home-container">
       <header className="home-header">
         <div className="logo">
-          <h1>FUKAKU SUSHI</h1>
+          <h1>FUKUSUKE SUSHI</h1>
         </div>
         <div className="header-actions">
           <button className="icon-button" onClick={toggleSearch}>
