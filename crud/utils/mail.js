@@ -1,25 +1,30 @@
-const nodemailer = require('nodemailer');
+require("dotenv").config();
+
+const nodemailer = require("nodemailer");
+
+const NODEMAILER_USER = process.env.NODEMAILER_USER;
+const NODEMAILER_PASS = process.env.NODEMAILER_PASS;
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
-    user: 'no.reply.sushifukusuke@gmail.com',
-    pass: 'fukusuke2025'
-  }
+    user: NODEMAILER_USER,
+    pass: NODEMAILER_PASS,
+  },
 });
 
 function enviarCorreoConfirmacion(email, token) {
   const url = `http://localhost:3000/confirmar/${token}`;
   const mensaje = {
-    from: 'no.reply.sushifukusuke@gmail.com',
+    from: "no.reply.sushifukusuke@gmail.com",
     to: email,
-    subject: 'Confirma tu cuenta',
-    html: `<h2>Bienvenido</h2><p>Haz clic en el siguiente enlace para confirmar tu cuenta:</p><a href="${url}">${url}</a>`
+    subject: "Confirma tu cuenta",
+    html: `<h2>Bienvenido</h2><p>Haz clic en el siguiente enlace para confirmar tu cuenta:</p><a href="${url}">${url}</a>`,
   };
 
   transporter.sendMail(mensaje, (err, info) => {
-    if (err) console.error('Error al enviar correo:', err);
-    else console.log('Correo de confirmación enviado:', info.response);
+    if (err) console.error("Error al enviar correo:", err);
+    else console.log("Correo de confirmación enviado:", info.response);
   });
 }
 
