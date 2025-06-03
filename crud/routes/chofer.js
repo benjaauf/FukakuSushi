@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../database');
+const db = require('../db/database');
 
 // Obtener todos los registros
 router.get('/', (req, res) => {
