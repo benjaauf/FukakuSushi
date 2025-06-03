@@ -8,8 +8,7 @@ para db
 en /crud/
 
 npm init -y
-
-npm install express sqlite3
+npm install express sqlite3 bcrypt nodemailer
 
 node app.js
 
