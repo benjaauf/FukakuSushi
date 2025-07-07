@@ -101,4 +101,40 @@ router.delete('/:rut', (req, res) => {
   });
 });
 
+// Login cliente
+router.post('/login', (req, res) => {
+  const { email, contraseña } = req.body;
+
+  if (!email || !contraseña) {
+    return res.status(400).json({ error: 'Email y contraseña son obligatorios' });
+  }
+
+  const sql = 'SELECT * FROM Cliente WHERE email = ?';
+  db.get(sql, [email], async (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (!row) {
+      return res.status(401).json({ error: 'Usuario no encontrado' });
+    }
+
+    if (!row.verificado) {
+      return res.status(403).json({ error: 'Cuenta no verificada. Revisa tu correo.' });
+    }
+
+    const match = await bcrypt.compare(contraseña, row.contraseña);
+    if (match) {
+      res.json({ 
+        mensaje: 'Login exitoso', 
+        nombre: row.nombre, 
+        email: row.email,
+        rut: row.rut,
+        tipo: 'cliente'
+      });
+    } else {
+      res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
+  });
+});
+
 module.exports = router;

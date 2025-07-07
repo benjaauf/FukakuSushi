@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "./Icons";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import styles from "./Profileview.module.css";
 
 export default function ProfileView() {
-  const [user, setUser] = useState(null);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  
   const toggleSearch = () => {
     setShowSearch(!showSearch);
     if (showSearch) {
       setSearchTerm("");
     }
   };
-  const location = useLocation();
-  const mail = location.state?.email || null; // Obtener el email del estado de la ubicación
 
-  useEffect(() => {
-    if (mail) {
-      setUser(mail);
-    }
-    console.log("User email:", mail);
-  }, [mail]);
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className={styles.profileView}>
@@ -60,20 +58,22 @@ export default function ProfileView() {
           </>
         ) : (
           <>
-            <h2 className={styles.profileTitle}>Perfil de {user}</h2>
+            <h2 className={styles.profileTitle}>Perfil de {user.nombre}</h2>
             <div className={styles.userInfo}>
-              <p>Email: {user}</p>
-              {/* Aquí puedes agregar más información del usuario */}
+              <p>Email: {user.email}</p>
+              <p>Tipo: {user.tipo}</p>
+              {user.rol && <p>Rol: {user.rol}</p>}
+              {user.rut && <p>RUT: {user.rut}</p>}
             </div>
             <div className={styles.buttonContainer}>
               <button
                 className={styles.button}
-                onClick={() => navigate("/edit", { state: { email: user } })} // Pasar el email al editar perfil
+                onClick={() => navigate("/edit", { state: { email: user.email } })}
               >
                 Editar Perfil
               </button>
-              <button className={styles.button} onClick={() => setUser(null)}>
-                Cerrar Sesion
+              <button className={styles.button} onClick={handleLogout}>
+                Cerrar Sesión
               </button>
             </div>
           </>

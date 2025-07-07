@@ -139,7 +139,14 @@ router.post('/login', (req, res) => {
 
     const match = await bcrypt.compare(contraseña, row.contraseña);
     if (match) {
-      res.json({ mensaje: 'Login exitoso', nombre: row.nombre, rol: row.rol });
+      res.json({ 
+        mensaje: 'Login exitoso', 
+        nombre: row.nombre, 
+        email: row.email,
+        rol: row.rol,
+        rut: row.rut,
+        tipo: 'trabajador'
+      });
     } else {
       res.status(401).json({ error: 'Contraseña incorrecta' });
     }

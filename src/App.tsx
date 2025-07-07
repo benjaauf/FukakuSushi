@@ -14,29 +14,32 @@ import ProfileView from "./components/ProfileView";
 import RegisterView from "./components/RegisterView";
 import LoginView from "./components/LoginView";
 import EditView from "./components/EditProfile";
+import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
 
 function App() {
   return (
-    <div className="app-container">
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/carrito" element={<CartView />} />
-        <Route path="/checkout" element={<CheckoutView />} />
-        <Route path="/payment" element={<PaymentMethodView />} />
-        <Route path="/confirmacion" element={<OrderConfirmationView />} />
-        <Route path="/inventario" element={<InventoryView />} />
-        <Route path="/cajero" element={<CashierView />} />
-        <Route path="/dueno" element={<OwnerDashboardView />} />
-        <Route path="/admin" element={<AdminHomeView />} />
-        <Route path="/admin/usuarios" element={<UserManagementView />} />
-        <Route path="/despachos" element={<DeliveryManagerView />} />
-        <Route path="/register" element={<RegisterView />} />
-        <Route path="/perfil" element={<ProfileView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/edit" element={<EditView />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={<HomeView />} />
+          <Route path="/carrito" element={<CartView />} />
+          <Route path="/checkout" element={<CheckoutView />} />
+          <Route path="/payment" element={<PaymentMethodView />} />
+          <Route path="/confirmacion" element={<OrderConfirmationView />} />
+          <Route path="/inventario" element={<InventoryView />} />
+          <Route path="/cajero" element={<CashierView />} />
+          <Route path="/dueno" element={<OwnerDashboardView />} />
+          <Route path="/admin" element={<AdminHomeView />} />
+          <Route path="/admin/usuarios" element={<UserManagementView />} />
+          <Route path="/despachos" element={<DeliveryManagerView />} />
+          <Route path="/register" element={<RegisterView />} />
+          <Route path="/perfil" element={<ProfileView />} />
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/edit" element={<EditView />} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

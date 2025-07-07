@@ -1,31 +1,56 @@
 import { useState } from "react";
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon } from "./Icons";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import styles from "./LoginView.module.css";
-export default function RegisterPage() {
+
+export default function LoginView() {
   const navigate = useNavigate();
+  const { login, isLoading, error } = useAuth();
   const [showSearch, setShowSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  
   const toggleSearch = () => {
     setShowSearch(!showSearch);
     if (showSearch) {
       setSearchTerm("");
     }
   };
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío del formulario, como enviar los datos a una API
-    console.log("Formulario enviado:", formData);
-    navigate("/perfil", { state: { email: formData.email } });
-    // Redirigir a la página de perfil después del registro exitoso
+    
+    try {
+      const response = await login(formData.email, formData.password);
+      // Redirigir según el tipo de usuario
+      if (response.tipo === 'trabajador') {
+        if (response.rol === 'admin' || response.rol === 'dueno') {
+          navigate("/admin");
+        } else if (response.rol === 'cajero') {
+          navigate("/cajero");
+        } else if (response.rol === 'despacho') {
+          navigate("/despachos");
+        } else {
+          navigate("/inventario");
+        }
+      } else {
+        // Cliente
+        navigate("/perfil");
+      }
+    } catch (err) {
+      // El error ya está manejado por el contexto
+      console.error("Error en login:", err);
+    }
   };
   return (
     <div className={styles.loginView}>
@@ -63,8 +88,14 @@ export default function RegisterPage() {
             onChange={handleChange}
           />
 
-          <button type="submit" className={styles.button}>
-            Inicio sesion
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+          
+          <button type="submit" className={styles.button} disabled={isLoading}>
+            {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
           </button>
         </form>
       </main>
