@@ -110,7 +110,6 @@ export default function CartView() {
           Confirmar
         </button>
       </div>
-
       <nav className="bottom-nav">
         <button className="nav-item" onClick={() => navigate("/")}>
           <HomeIcon />

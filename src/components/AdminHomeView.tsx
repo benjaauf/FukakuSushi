@@ -480,10 +480,6 @@ export default function AdminHomeView() {
           <UsersIcon />
           <span>Usuarios</span>
         </button>
-        <button className="nav-item" onClick={() => navigate("/inventario")}>
-          <PackageIcon />
-          <span>Inventario</span>
-        </button>
         <button className="nav-item" onClick={() => navigate("/perfil")}>
           <UserIcon />
           <span>Perfil</span>

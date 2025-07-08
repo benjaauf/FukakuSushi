@@ -65,7 +65,7 @@ export default function ProfileView() {
               {user.rol && <p>Rol: {user.rol}</p>}
               {user.rut && <p>RUT: {user.rut}</p>}
             </div>
-            <div className={styles.buttonContainer}>
+            <div className={styles.buttonContainer}>      
               <button
                 className={styles.button}
                 onClick={() => navigate("/edit", { state: { email: user.email } })}

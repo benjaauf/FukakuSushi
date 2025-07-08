@@ -501,10 +501,6 @@ export default function UserManagementView() {
           <UsersIcon />
           <span>Usuarios</span>
         </button>
-        <button className="nav-item" onClick={() => navigate("/admin/inventario")}>
-          <PackageIcon />
-          <span>Inventario</span>
-        </button>
         <button className="nav-item" onClick={() => navigate("/admin/perfil")}>
           <UserIcon />
           <span>Perfil</span>

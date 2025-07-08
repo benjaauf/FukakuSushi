@@ -156,6 +156,9 @@
   padding: 1rem;
   background-color: white;
   width: 100%;
+  position: fixed;       /* Lo fija en pantalla */
+  bottom: 60px;          /* Se eleva por sobre el nav */
+  z-index: 10; 
 }
 
 .cart-total {
