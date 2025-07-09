@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import "./CartView.css"
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon, PlusIcon, MinusIcon } from "./Icons"
@@ -15,33 +15,40 @@ interface CartItem {
 }
 
 export default function CartView() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    document.body.style.height = '100.1vh'
+    setTimeout(() => {
+      document.body.style.height = ''
+    }, 100)
+  }, [])
   const navigate = useNavigate()
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Tobiko California Roll",
-      description: "Arroz, Palta, Camarón, Palta, Tobiko",
-      price: 9990,
-      quantity: 1,
-      image: "/sushi1.jpg",
-    },
-    {
-      id: 2,
-      name: "Smoked Salmon Roll",
-      description: "Arroz, Salmón, Palta, Ajo Nori",
-      price: 9990,
-      quantity: 1,
-      image: "/sushi2.jpg",
-    },
-    {
-      id: 3,
-      name: "Nigiri",
-      description: "Arroz, Salmón",
-      price: 9990,
-      quantity: 1,
-      image: "/sushi3.jpg",
-    },
-  ])
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storedCart = localStorage.getItem("cart")
+    return storedCart ? JSON.parse(storedCart) : []
+  })
+  const isInitialized = useRef(true) // Ya no es necesario, pero lo dejamos true para el useEffect
+
+  // Sincronizar el carrito si cambia el localStorage (por navegación SPA)
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "cart") {
+        const newCart = e.newValue ? JSON.parse(e.newValue) : []
+        setCartItems(newCart)
+      }
+    }
+    window.addEventListener("storage", handleStorage)
+    return () => window.removeEventListener("storage", handleStorage)
+  }, [])
+
+  // Eliminar el useEffect que cargaba el carrito desde localStorage
+
+  // Guardar carrito en localStorage cuando cambie
+  useEffect(() => {
+    if (isInitialized.current) {
+      localStorage.setItem("cart", JSON.stringify(cartItems))
+    }
+  }, [cartItems])
 
   const increaseQuantity = (id: number) => {
     setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)))
@@ -65,6 +72,11 @@ export default function CartView() {
     navigate("/checkout", { state: { total: calculateTotal() } })
   }
 
+  const handleClearCart = () => {
+    setCartItems([])
+    localStorage.removeItem("cart")
+  }
+
   return (
     <div className="cart-container">
       <header className="cart-header">
@@ -77,28 +89,40 @@ export default function CartView() {
         </button>
       </header>
 
+      <div style={{ display: "flex", justifyContent: "flex-end", padding: "0 1rem 0.5rem 1rem" }}>
+        <button onClick={handleClearCart} style={{ background: "#eee", color: "#800000", border: "none", borderRadius: 6, padding: "0.5rem 1rem", cursor: "pointer", fontWeight: 600 }}>
+          Limpiar carrito
+        </button>
+      </div>
+
       <div className="cart-items">
-        {cartItems.map((item) => (
-          <div className="cart-item" key={item.id}>
-            <div className="item-image">
-              <img src={item.image || "/placeholder.svg"} alt={item.name} />
-            </div>
-            <div className="item-details">
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-              <p className="item-price">{formatPrice(item.price)}</p>
-            </div>
-            <div className="item-quantity">
-              <button className="quantity-button increase" onClick={() => increaseQuantity(item.id)}>
-                <PlusIcon />
-              </button>
-              <span>{item.quantity}</span>
-              <button className="quantity-button decrease" onClick={() => decreaseQuantity(item.id)}>
-                <MinusIcon />
-              </button>
-            </div>
+        {cartItems.length === 0 ? (
+          <div style={{ textAlign: "center", color: "#666", padding: "2rem" }}>
+            Tu carrito está vacío.
           </div>
-        ))}
+        ) : (
+          cartItems.map((item) => (
+            <div className="cart-item" key={item.id}>
+              <div className="item-image">
+                <img src={item.image || "/placeholder.svg"} alt={item.name} />
+              </div>
+              <div className="item-details">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+                <p className="item-price">{formatPrice(item.price)}</p>
+              </div>
+              <div className="item-quantity">
+                <button className="quantity-button increase" onClick={() => increaseQuantity(item.id)}>
+                  <PlusIcon />
+                </button>
+                <span>{item.quantity}</span>
+                <button className="quantity-button decrease" onClick={() => decreaseQuantity(item.id)}>
+                  <MinusIcon />
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       <div className="cart-footer">
@@ -106,7 +130,7 @@ export default function CartView() {
           <span>Total</span>
           <span>{formatPrice(calculateTotal())}</span>
         </div>
-        <button className="confirm-button" onClick={handleConfirm}>
+        <button className="confirm-button" onClick={handleConfirm} disabled={cartItems.length === 0}>
           Confirmar
         </button>
       </div>

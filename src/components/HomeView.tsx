@@ -6,16 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import "./HomeView.css"
 import { HomeIcon, ShoppingCartIcon, UserIcon, SearchIcon, PlusIcon, MinusIcon, CheckIcon, XIcon } from "./Icons"
-
-interface Product {
-  id: number
-  name: string
-  description: string
-  price: number
-  image: string
-  ingredients: string[]
-  categories: string[]
-}
+import { ProductService, Product } from "../services/productService"
 
 interface Category {
   id: number
@@ -26,69 +17,9 @@ interface Category {
 export default function HomeView() {
   const navigate = useNavigate()
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const [categories, setCategories] = useState<Category[]>([
-    { id: 1, name: "Populares", active: true },
-    { id: 2, name: "Tempura", active: false },
-    { id: 3, name: "Nori", active: false },
-    { id: 4, name: "Avocado", active: false },
-  ])
-
-  const [allProducts, setAllProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Nigiri",
-      description: "Arroz, Salmón",
-      price: 9990,
-      image: "/sushi3.jpg",
-      ingredients: ["Arroz", "Salmón"],
-      categories: ["Populares"],
-    },
-    {
-      id: 2,
-      name: "Smoked Salmon Roll",
-      description: "Arroz, Salmón, Palta, Alga Nori",
-      price: 9990,
-      image: "/sushi2.jpg",
-      ingredients: ["Arroz", "Salmón", "Palta", "Alga Nori"],
-      categories: ["Populares", "Nori", "Avocado"],
-    },
-    {
-      id: 3,
-      name: "Tobiko California Roll",
-      description: "Arroz, Pepino, Cangrejo, Palta, Tobiko",
-      price: 9990,
-      image: "/sushi1.jpg",
-      ingredients: ["Arroz", "Pepino", "Cangrejo", "Palta", "Tobiko"],
-      categories: ["Populares", "Avocado"],
-    },
-    {
-      id: 4,
-      name: "Yasu Roll",
-      description: "Arroz, Camarón, Queso crema, Salmón, Cebollín",
-      price: 9990,
-      image: "/sushi4.jpg",
-      ingredients: ["Arroz", "Camarón", "Queso crema", "Salmón", "Cebollín"],
-      categories: ["Populares"],
-    },
-    {
-      id: 5,
-      name: "Tempura Roll",
-      description: "Arroz, Camarón tempura, Palta, Salsa especial",
-      price: 10990,
-      image: "/sushi1.jpg",
-      ingredients: ["Arroz", "Camarón tempura", "Palta", "Salsa especial"],
-      categories: ["Tempura", "Avocado"],
-    },
-    {
-      id: 6,
-      name: "Nori Special",
-      description: "Arroz, Salmón, Alga Nori, Aguacate",
-      price: 11990,
-      image: "/sushi2.jpg",
-      ingredients: ["Arroz", "Salmón", "Alga Nori", "Aguacate"],
-      categories: ["Nori", "Avocado"],
-    },
-  ])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [allProducts, setAllProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [showFilters, setShowFilters] = useState(false)
@@ -100,12 +31,40 @@ export default function HomeView() {
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
   const [selectedQuantity, setSelectedQuantity] = useState<number>(1)
 
+  // Cargar productos desde la base de datos
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true)
+        const products = await ProductService.getAllProducts()
+        setAllProducts(products)
+        
+        // Generar categorías dinámicamente desde los productos
+        const allCategories = [...new Set(products.flatMap(product => product.categories))]
+        const categoryObjects = allCategories.map((name, index) => ({
+          id: index + 1,
+          name,
+          active: index === 0 // La primera categoría estará activa por defecto
+        }))
+        setCategories(categoryObjects)
+      } catch (error) {
+        console.error('Error cargando productos:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    loadProducts()
+  }, [])
+
   // Lista de todos los ingredientes disponibles
   const allIngredients = [...new Set(allProducts.flatMap((product) => product.ingredients))].sort()
 
   // Filtrar productos cuando cambia la categoría, los ingredientes seleccionados o el término de búsqueda
   useEffect(() => {
-    const activeCategory = categories.find((cat) => cat.active)?.name || "Populares"
+    if (loading || categories.length === 0) return
+    
+    const activeCategory = categories.find((cat) => cat.active)?.name || categories[0]?.name
 
     let filtered = allProducts
 
@@ -130,7 +89,7 @@ export default function HomeView() {
     }
 
     setFilteredProducts(filtered)
-  }, [categories, selectedIngredients, allProducts, searchTerm])
+  }, [categories, selectedIngredients, allProducts, searchTerm, loading])
 
   // Enfocar el campo de búsqueda cuando se muestra
   useEffect(() => {
@@ -197,24 +156,29 @@ export default function HomeView() {
     if (selectedProductId !== null) {
       const product = allProducts.find((p) => p.id === selectedProductId)
       if (product) {
-        // Aquí podrías implementar la lógica para añadir al carrito
-        // Por ejemplo, usando localStorage o un estado global
-        console.log(`Añadiendo ${selectedQuantity} unidades de ${product.name} al carrito`)
-
-        // Simulamos añadir al carrito (en una aplicación real, esto se haría con un estado global o localStorage)
-        const cartItem = {
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          quantity: selectedQuantity,
-          image: product.image,
+        // Leer carrito actual de localStorage
+        const storedCart = localStorage.getItem("cart")
+        let cart: any[] = storedCart ? JSON.parse(storedCart) : []
+        // Buscar si el producto ya está en el carrito
+        const existingIndex = cart.findIndex(item => item.id === product.id)
+        if (existingIndex !== -1) {
+          // Si ya existe, aumentar la cantidad
+          cart[existingIndex].quantity += selectedQuantity
+        } else {
+          // Si no existe, agregarlo
+          cart.push({
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            quantity: selectedQuantity,
+            image: product.image,
+          })
         }
-
-        // En una aplicación real, aquí guardarías el item en el carrito
-        console.log("Item añadido al carrito:", cartItem)
-
-        // Redirigir al carrito
+        // Guardar carrito actualizado
+        localStorage.setItem("cart", JSON.stringify(cart))
+        console.log("Carrito actualizado:", cart)
+        // Navegación SPA
         navigate("/carrito")
       }
     }
@@ -321,7 +285,12 @@ export default function HomeView() {
         )}
 
         <div className="products-grid">
-          {filteredProducts.length > 0 ? (
+          {loading ? (
+            <div className="loading-message">
+              <div className="loading-spinner"></div>
+              <p>Cargando productos...</p>
+            </div>
+          ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div className="product-card" key={product.id}>
                 <div className="product-image">
