@@ -14,6 +14,7 @@ import {
   ChevronDownIcon,
   CalendarIcon,
   SettingsIcon,
+  EditIcon,
 } from "./Icons"
 import "./AdminHomeView.css"
 
@@ -475,6 +476,10 @@ export default function AdminHomeView() {
         <button className="nav-item active" onClick={() => navigate("/admin")}>
           <HomeIcon />
           <span>Inicio</span>
+        </button>
+        <button className="nav-item active" onClick={() => navigate("/admin/menu")}>
+          <EditIcon />
+          <span>Menu</span>
         </button>
         <button className="nav-item" onClick={() => navigate("/admin/usuarios")}>
           <UsersIcon />

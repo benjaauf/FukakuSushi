@@ -32,15 +32,16 @@ async function seedDatabase() {
       verificado INTEGER DEFAULT 0
     );
 
-      CREATE TABLE IF NOT EXISTS sushi (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL,
-      description TEXT,
-      price INTEGER,
-      image TEXT,
-      ingredients TEXT,
-      categories TEXT
-    );
+    CREATE TABLE IF NOT EXISTS producto (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    price INTEGER,
+    image TEXT,
+    ingredients TEXT,
+    categories TEXT,
+    disponibilidad INTEGER DEFAULT 1
+    );  
   `;
 
   try {
@@ -312,7 +313,7 @@ async function seedDatabase() {
     for (const sushi of sushis) {
       await new Promise((resolve, reject) => {
         db.run(`
-          INSERT OR REPLACE INTO sushi 
+          INSERT OR REPLACE INTO producto 
           (id, name, description, price, image, ingredients, categories)
           VALUES (?, ?, ?, ?, ?, ?, ?)
         `, [

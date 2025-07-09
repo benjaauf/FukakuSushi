@@ -14,6 +14,7 @@ import ProfileView from "./components/ProfileView";
 import RegisterView from "./components/RegisterView";
 import LoginView from "./components/LoginView";
 import EditView from "./components/EditProfile";
+import AdminMenuView from "./components/AdminMenuview";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/dueno" element={<OwnerDashboardView />} />
           <Route path="/admin" element={<AdminHomeView />} />
           <Route path="/admin/usuarios" element={<UserManagementView />} />
+          <Route path="/admin/menu" element={<AdminMenuView />} />
           <Route path="/despachos" element={<DeliveryManagerView />} />
           <Route path="/register" element={<RegisterView />} />
           <Route path="/perfil" element={<ProfileView />} />
