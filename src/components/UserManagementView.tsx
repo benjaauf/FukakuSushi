@@ -497,6 +497,10 @@ export default function UserManagementView() {
           <HomeIcon />
           <span>Inicio</span>
         </button>
+        <button className="nav-item active" onClick={() => navigate("/admin/menu")}>
+          <EditIcon />
+          <span>Menu</span>
+        </button>
         <button className="nav-item active" onClick={() => navigate("/admin/usuarios")}>
           <UsersIcon />
           <span>Usuarios</span>

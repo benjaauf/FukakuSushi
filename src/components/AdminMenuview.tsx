@@ -128,7 +128,7 @@ export default function AdminMenuView() {
         </button>
         <button className="nav-item active" onClick={() => navigate("/admin/menu")}>
           <EditIcon />
-          <span>Carta</span>
+          <span>Menu</span>
         </button>
         <button className="nav-item" onClick={() => navigate("/admin/usuarios")}>
           <UsersIcon />
