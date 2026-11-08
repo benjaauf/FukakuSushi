@@ -1,0 +1,982 @@
+{
+  "version": "2.1.2",
+  "summary": {
+    "title": "FukakuSushi - Threat Model",
+    "owner": "Equipo FukakuSushi",
+    "description": "DFD nivel 1 de la plataforma de pedidos (React + Express + SQLite). Metodología STRIDE.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Equipo FukakuSushi"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "DFD principal",
+        "diagramType": "STRIDE",
+        "placeholder": "Diagrama de flujo de datos principal",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.1.2",
+        "cells": [
+          {
+            "position": {
+              "x": 230,
+              "y": 20
+            },
+            "size": {
+              "width": 340,
+              "height": 420
+            },
+            "attrs": {
+              "headerText": {
+                "text": "Navegador (cliente)"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "zIndex": 0,
+            "id": "44d54dd6-fa93-4331-988c-ddb2fd06384b",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Navegador (cliente)",
+              "description": "Zona no confiable: código y almacenamiento bajo control del usuario",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 620,
+              "y": 20
+            },
+            "size": {
+              "width": 520,
+              "height": 420
+            },
+            "attrs": {
+              "headerText": {
+                "text": "Servidor backend"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "zIndex": 0,
+            "id": "d8648ab7-1709-43be-82cb-5375be683aa2",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Servidor backend",
+              "description": "Host Node.js (puerto 3000)",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 60
+            },
+            "size": {
+              "width": 110,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Cliente"
+              },
+              "body": {
+                "stroke": "black",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "9d6e6b52-9b2c-40f4-a4c0-6005421971b0",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Cliente",
+              "description": "Comprador que se registra, pide y paga",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isTrustBoundary": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 300
+            },
+            "size": {
+              "width": 110,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Personal (admin/dueño/cajero)"
+              },
+              "body": {
+                "stroke": "black",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "e0737843-1dda-4ab9-8a15-75defc1c7c45",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Personal",
+              "description": "Admin, dueño y cajero",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isTrustBoundary": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 1000,
+              "y": 330
+            },
+            "size": {
+              "width": 110,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Servidor SMTP (Gmail)"
+              },
+              "body": {
+                "stroke": "black",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "a48d866f-8fd8-445f-8925-ac05e18da244",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Servidor SMTP (Gmail)",
+              "description": "Servicio externo de correo",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isTrustBoundary": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 270,
+              "y": 80
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "SPA React"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f",
+            "data": {
+              "type": "tm.Process",
+              "name": "SPA React",
+              "description": "Frontend React 19 + Vite (puerto 5173)",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isTrustBoundary": false,
+              "threats": [
+                {
+                  "id": "df2b7b7b-ab13-4b2e-9edb-2e1d69719c2d",
+                  "title": "Control de acceso solo en el cliente (y no aplicado)",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "ProtectedRoute existe pero App.tsx no lo usa: /admin, /dueno, /cajero y /admin/usuarios son accesibles navegando a la URL. Además, aunque se usara, el control en el navegador es evadible.",
+                  "mitigation": "Aplicar ProtectedRoute como UX y reforzar autorización en el backend (la defensa real); ocultar vistas según rol verificado por el servidor.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": "28.6"
+                }
+              ],
+              "privilege": false,
+              "isWebApplication": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": true,
+              "isALibrary": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 270,
+              "y": 300
+            },
+            "size": {
+              "width": 100,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "localStorage"
+              },
+              "body": {
+                "stroke": "black",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 1,
+            "id": "3aa70567-d229-415a-b566-37ac124b96bc",
+            "data": {
+              "type": "tm.Store",
+              "name": "localStorage",
+              "description": "Sesión de usuario serializada en el navegador",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isTrustBoundary": false,
+              "threats": [
+                {
+                  "id": "5d4414e1-117b-4edb-894a-335e2e96d586",
+                  "title": "Sesión sin firmar en localStorage",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "AuthContext guarda el objeto de usuario (rol, tipo) en localStorage sin firma; cualquier script o el propio usuario puede editarlo para aparentar otro rol.",
+                  "mitigation": "Usar cookie httpOnly/SameSite con token firmado por el servidor; no confiar en rol del cliente; CSP para reducir XSS.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": "24.9"
+                }
+              ],
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false
+            }
+          },
+          {
+            "position": {
+              "x": 680,
+              "y": 80
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "API Express"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "ca5ad1c0-5812-49ca-88a1-04345506175d",
+            "data": {
+              "type": "tm.Process",
+              "name": "API Express",
+              "description": "crud/app.js: rutas CRUD, login y verificación",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isTrustBoundary": false,
+              "threats": [
+                {
+                  "id": "d047098b-0b48-4612-9ccf-ecb7cc56640f",
+                  "title": "Backend sin autenticación ni autorización",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Ninguna ruta de crud/routes/* valida identidad o rol. Un anónimo puede hacer PUT /trabajadores/:rut con {rol:'admin'} o resetear la contraseña de cualquier cuenta, y leer/borrar clientes, pedidos y pagos.",
+                  "mitigation": "Emitir JWT/sesión httpOnly en el login; middleware requireAuth y requireRole(admin|dueno|cajero) en todas las rutas; impedir que el cliente escriba rol/verificado.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "57.2"
+                },
+                {
+                  "id": "438a1631-9e84-41ed-800f-d44cbce04c2b",
+                  "title": "Inyección SQL por nombres de columna",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "pago, pedido, pedidoitem, chofer, despacho, ingrediente, producto y productoingrediente concatenan Object.keys(req.body) en INSERT/UPDATE (línea ~23 y ~33). Los valores usan '?', los identificadores no.",
+                  "mitigation": "Whitelist de columnas por tabla; validación de esquema con zod/joi; rechazar claves desconocidas; considerar un query builder/ORM.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "54.4"
+                },
+                {
+                  "id": "59e96e68-8aff-4144-b12c-7a3e013773de",
+                  "title": "Login sin token ni rate limiting (fuerza bruta)",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "POST /clientes/login y /trabajadores/login devuelven JSON de perfil sin emitir token verificable y sin límite de intentos; permite fuerza bruta y credential stuffing.",
+                  "mitigation": "express-rate-limit y bloqueo temporal; emitir token firmado con expiración; mensajes de error uniformes; MFA para roles de personal.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "38.5"
+                },
+                {
+                  "id": "30bd5eb6-ab96-43f8-9752-5159839594ab",
+                  "title": "Token de verificación de correo predecible",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "El token es base64url(email), sin secreto ni expiración (clientes.js:22, trabajadores.js:25). Cualquiera puede llamar GET /confirmar/<base64(email)> y marcar verificado=1 en cualquier cuenta.",
+                  "mitigation": "Generar tokens con crypto.randomBytes, guardarlos hasheados con expiración y de un solo uso; invalidar tras verificar.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "26.7"
+                },
+                {
+                  "id": "e63d9f8e-39e1-4ae5-9a90-e09ff3906dae",
+                  "title": "Credenciales por defecto en el seed",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "seed.js crea admin@, dueno@ y cajero@fukusuke.com con contraseña '123456'. Si fukusuke.db (commiteada) se usa en producción, esas cuentas privilegiadas existen.",
+                  "mitigation": "Eliminar contraseñas fijas; generar credenciales aleatorias en el despliegue; forzar cambio en el primer login; no versionar la base.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "57.2"
+                },
+                {
+                  "id": "2e905484-b435-41a1-824e-fa6b22a289cf",
+                  "title": "Sin límites de payload ni protección DoS",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "express.json() sin límite de tamaño, sin rate limiting y sin helmet; permite agotar memoria/CPU y bloquear el único proceso Node con SQLite.",
+                  "mitigation": "express.json({limit:'100kb'}); rate limiting global; timeouts; reverse proxy/WAF; monitoreo de disponibilidad.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "22.8"
+                }
+              ],
+              "privilege": true,
+              "isWebApplication": true,
+              "handlesCardPayment": true,
+              "handlesGoodsOrServices": true,
+              "isALibrary": false,
+              "providesAuthentication": true
+            }
+          },
+          {
+            "position": {
+              "x": 680,
+              "y": 320
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Módulo de correo"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "15bf5c44-a98a-46a1-8f9a-ca40aef82926",
+            "data": {
+              "type": "tm.Process",
+              "name": "Módulo de correo",
+              "description": "crud/utils/mail.js (nodemailer)",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isTrustBoundary": false,
+              "threats": [
+                {
+                  "id": "ffc33370-5401-4cb4-8476-75a97db6ca08",
+                  "title": "Inyección de HTML en correos de verificación",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "mail.js:20 inserta email y url sin escapar en el HTML del correo; un atacante puede registrar un 'email' con contenido que altere el mensaje (phishing desde el dominio legítimo).",
+                  "mitigation": "Escapar/sanitizar entradas; plantillas con motor seguro; validar formato de email; usar URL base de configuración (no localhost).",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": "24.1"
+                }
+              ],
+              "privilege": false,
+              "isWebApplication": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isALibrary": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 960,
+              "y": 100
+            },
+            "size": {
+              "width": 110,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite fukusuke.db"
+              },
+              "body": {
+                "stroke": "black",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 1,
+            "id": "dccf7827-7c95-4593-ac1e-3de3d0e48a3e",
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite fukusuke.db",
+              "description": "Usuarios, pedidos, pagos, productos, despachos",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isTrustBoundary": false,
+              "threats": [
+                {
+                  "id": "09e3a145-4061-4f8f-afc2-0e70afe5d3b0",
+                  "title": "Base de datos SQLite versionada en Git",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "crud/fukusuke.db está commiteada; cualquiera con acceso al repo obtiene hashes bcrypt, datos personales y registros de pedidos/pagos.",
+                  "mitigation": "Quitar la base del repo y del historial; .gitignore; seed reproducible con datos ficticios; cifrado en reposo en producción.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": "43.1"
+                },
+                {
+                  "id": "ce5a9823-6bc4-40b4-951d-a238e96b6aca",
+                  "title": "Ausencia de registro de auditoría",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "No hay logs de accesos ni de cambios en usuarios, pedidos y pagos; ante fraude o borrado no se puede reconstruir quién hizo qué.",
+                  "mitigation": "Tabla/archivo de auditoría con usuario, acción, timestamp e IP; logging estructurado; retención y protección contra alteración.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 14,
+                  "score": "26.3"
+                }
+              ],
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": true
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "34872ad9-feb6-40ad-9598-0473e3fd1d5b",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Interacción del cliente",
+              "description": "Navegación y formularios",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "Interacción del cliente"
+            ],
+            "source": {
+              "cell": "9d6e6b52-9b2c-40f4-a4c0-6005421971b0"
+            },
+            "target": {
+              "cell": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "d3b27e4f-ca2d-4663-a6a3-2ac74702172b",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Interacción del personal",
+              "description": "Vistas admin/caja/dueño",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "Interacción del personal"
+            ],
+            "source": {
+              "cell": "e0737843-1dda-4ab9-8a15-75defc1c7c45"
+            },
+            "target": {
+              "cell": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "19afa100-da84-4e68-8e69-894f0e5f2a6d",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Solicitud HTTP/JSON",
+              "description": "Login, CRUD, pedidos, pagos (http://localhost:3000)",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": true,
+              "protocol": "HTTP",
+              "threats": [
+                {
+                  "id": "f65c7088-7798-408e-8d1d-d467b438b317",
+                  "title": "Manipulación de montos y campos en pedidos/pagos (mass assignment)",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "POST/PUT /pago, /pedido y /pedidoitem aceptan cualquier columna del body; el cliente puede fijar precio, estado de pago o total sin validación del servidor ni pasarela.",
+                  "mitigation": "Calcular montos y estados en el servidor; DTO con campos permitidos; integrar pasarela de pago y confirmar por webhook firmado.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": "39.2"
+                },
+                {
+                  "id": "f62d0f52-f399-467a-9a50-929ed8fb8789",
+                  "title": "Tráfico en claro y CORS abierto",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "El frontend usa http://localhost:3000 sin TLS; las credenciales de login y datos personales viajan sin cifrar y cors() acepta cualquier origen.",
+                  "mitigation": "Forzar HTTPS/HSTS; restringir CORS a orígenes conocidos; URL de API por variable de entorno (VITE_API_URL).",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": "27.3"
+                }
+              ]
+            },
+            "labels": [
+              "Solicitud HTTP/JSON"
+            ],
+            "source": {
+              "cell": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f"
+            },
+            "target": {
+              "cell": "ca5ad1c0-5812-49ca-88a1-04345506175d"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "0ad98c2b-5b7f-44c5-9806-4f05a8e1bbdb",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Respuesta JSON",
+              "description": "Perfil y datos personales",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": true,
+              "protocol": "HTTP",
+              "threats": [
+                {
+                  "id": "76ea3a31-c913-4175-9500-4de2189a90c4",
+                  "title": "Exposición masiva de datos personales en respuestas",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "GET /clientes y GET /trabajadores/trabajadores devuelven RUT, dirección, fecha de nacimiento, correo y teléfono a cualquier solicitante no autenticado.",
+                  "mitigation": "Exigir autenticación y rol; paginar y minimizar campos; cumplir Ley 19.628 (datos personales, Chile); registrar accesos.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": "43.1"
+                }
+              ]
+            },
+            "labels": [
+              "Respuesta JSON"
+            ],
+            "source": {
+              "cell": "ca5ad1c0-5812-49ca-88a1-04345506175d"
+            },
+            "target": {
+              "cell": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "e1be97ec-2ccf-4a71-8f29-2bae2987071b",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Guarda sesión",
+              "description": "localStorage.setItem('user')",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "Web Storage",
+              "threats": []
+            },
+            "labels": [
+              "Guarda sesión"
+            ],
+            "source": {
+              "cell": "11c3d58f-ca76-47d9-b1fe-24e06a66b01f"
+            },
+            "target": {
+              "cell": "3aa70567-d229-415a-b566-37ac124b96bc"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "395cd03a-1f70-400c-81d9-6160b8776558",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Consultas SQL",
+              "description": "INSERT/UPDATE/SELECT",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQLite",
+              "threats": []
+            },
+            "labels": [
+              "Consultas SQL"
+            ],
+            "source": {
+              "cell": "ca5ad1c0-5812-49ca-88a1-04345506175d"
+            },
+            "target": {
+              "cell": "dccf7827-7c95-4593-ac1e-3de3d0e48a3e"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "3ad75dc1-4377-4942-8602-cbf15a3eb923",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Registros",
+              "description": "Resultados de consultas",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQLite",
+              "threats": []
+            },
+            "labels": [
+              "Registros"
+            ],
+            "source": {
+              "cell": "dccf7827-7c95-4593-ac1e-3de3d0e48a3e"
+            },
+            "target": {
+              "cell": "ca5ad1c0-5812-49ca-88a1-04345506175d"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "9d11d96d-17fe-4f1b-a270-af0fe7fd763e",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Solicitud de verificación",
+              "description": "Email y token base64url",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "Interno",
+              "threats": []
+            },
+            "labels": [
+              "Solicitud de verificación"
+            ],
+            "source": {
+              "cell": "ca5ad1c0-5812-49ca-88a1-04345506175d"
+            },
+            "target": {
+              "cell": "15bf5c44-a98a-46a1-8f9a-ca40aef82926"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "classic"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "id": "1c6b84ac-8a07-4d6d-b928-07ed139d5b83",
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Correo saliente",
+              "description": "SMTP con credenciales NODEMAILER_*",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": true,
+              "protocol": "SMTP",
+              "threats": [
+                {
+                  "id": "0737e890-a83a-4216-bd53-f27eb73ecc60",
+                  "title": "Credenciales SMTP expuestas en el repositorio",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "crud/.env está versionado (.git/index) y no figura en .gitignore; contiene NODEMAILER_USER/PASS usados para el flujo hacia el servidor SMTP.",
+                  "mitigation": "Rotar la contraseña de aplicación; agregar .env a .gitignore; purgar historial (git filter-repo); gestor de secretos.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": "37.4"
+                }
+              ]
+            },
+            "labels": [
+              "Correo saliente"
+            ],
+            "source": {
+              "cell": "15bf5c44-a98a-46a1-8f9a-ca40aef82926"
+            },
+            "target": {
+              "cell": "a48d866f-8fd8-445f-8925-ac05e18da244"
+            },
+            "vertices": []
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "",
+    "threatTop": 15
+  }
+}
